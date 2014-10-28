@@ -1,0 +1,52 @@
+<% if @cat.persisted? %>
+  <% action = cat_url(@cat)%>
+<% else %>
+  <% action = cats_url %>
+<% end %>
+
+<ul>
+  <form action="<% action %>" method="post">
+    <% if @cat.persisted? %>
+      <input type="hidden" name="_method" value="PATCH" >
+    <% end %>
+    <li>
+      <label for="cat_name">Name</label>
+      <input type="text" name="cat[name]" value="<%=@cat.name %>">
+    </li>
+    <li>
+      <label for="cat_birth_date">Birth Date</label>
+      <input type="date" name="cat[birth_date]" value="<%=@cat.birth_date %>">
+    </li>
+    <li>
+      <input type="radio" name="cat[sex]" id="cat_sex_female" value="F">
+      <label for="cat_sex_female">Female</label>
+    </li>
+    <li>
+      <input type="radio" name="cat[sex]" id="cat_sex_male" value="M">
+      <label for="cat_sex_male">Male</label>
+    </li>
+    <li>
+      <label for="cat_color">Color</label>
+      <select name="cat[color]" id="cat_color">
+        <option disabled="disabled">Pick a color</option>
+        <% @cat.all_colors.each do |color|%>
+          <option value="<%= color %>" 
+            <%= selected="selected" if @cat.color == color %>>
+            <%= color %></option>
+        <%end%>
+          <!-- <option selected="selected"></option>
+          <option value="black">Black</option>
+          <option value="white">White</option>
+          <option value="gray">Gray</option>
+          <option value="orange">Orange</option> -->
+      </select>
+    </li>
+    <li>
+      <label for="cat_description">Description</label>
+      <input type="textarea" name="cat[description]" value="<%=@cat.description %>">
+    </li>
+    <li>
+      <input type="submit" value="Create cat">
+    </li>
+  </form>
+</ul>
