@@ -20,9 +20,18 @@ class Cat < ActiveRecord::Base
     "orange"
   ]
   
-  validates :birth_date, :color, :name, :sex, :description, presence: true
-  validates_date :birth_date, timeliness: { on_or_before: lambda { Date.current } }
-  validates :color, inclusion: { in: COLORS, message: "Not a valid color" }
+  has_many(
+    :rental_requests,
+    class_name: "CatRentalRequest",
+    foreign_key: :cat_id,
+    primary_key: :id,
+    dependent: :destroy
+  )
+  
+  validates :name, :description, presence: true
+  validates_date :birth_date, 
+                 timeliness: { on_or_before: lambda { Date.current } }
+  validates :color, inclusion: { in: COLORS }
   validates :sex, inclusion: { in: ["M", "F"], message: "Must be M or F" }
   
   def age
@@ -31,5 +40,10 @@ class Cat < ActiveRecord::Base
   
   def all_colors
     COLORS
+  end
+  
+  def rental_requests
+    CatRentalRequest.where("cat_id = ?", self.id)
+                    .order(:start_date)
   end
 end

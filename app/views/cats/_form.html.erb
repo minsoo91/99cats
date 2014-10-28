@@ -5,7 +5,7 @@
 <% end %>
 
 <ul>
-  <form action="<% action %>" method="post">
+  <form action="<%= action %>" method="post">
     <% if @cat.persisted? %>
       <input type="hidden" name="_method" value="PATCH" >
     <% end %>
@@ -18,20 +18,22 @@
       <input type="date" name="cat[birth_date]" value="<%=@cat.birth_date %>">
     </li>
     <li>
-      <input type="radio" name="cat[sex]" id="cat_sex_female" value="F">
+      <input type="radio" name="cat[sex]" id="cat_sex_female" value="F"
+      <%= checked="checked" if @cat.sex == "F" %>>
       <label for="cat_sex_female">Female</label>
     </li>
     <li>
-      <input type="radio" name="cat[sex]" id="cat_sex_male" value="M">
+      <input type="radio" name="cat[sex]" id="cat_sex_male" value="M"
+      <%= checked="checked" if @cat.sex == "M" %>>
       <label for="cat_sex_male">Male</label>
     </li>
     <li>
       <label for="cat_color">Color</label>
       <select name="cat[color]" id="cat_color">
-        <option disabled="disabled">Pick a color</option>
+        <option disabled="disabled" <%='selected="selected"' if @cat.color.nil? %>>Pick a color</option>
         <% @cat.all_colors.each do |color|%>
           <option value="<%= color %>" 
-            <%= selected="selected" if @cat.color == color %>>
+            <%='selected="selected"' if @cat.color == color %>>
             <%= color %></option>
         <%end%>
           <!-- <option selected="selected"></option>
