@@ -6,5 +6,5 @@ Rails.application.routes.draw do
       patch 'deny'
     end
   end
-  
+  root to: 'cats#index'
 end
