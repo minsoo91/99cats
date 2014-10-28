@@ -45,8 +45,9 @@ class CatRentalRequest < ActiveRecord::Base
   def overlapping_requests
     CatRentalRequest
       .where("cat_id = ?", self.cat_id)
-      .where("start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?", 
-             self.start_date, self.end_date, self.start_date, self.end_date)
+      .where("start_date BETWEEN :start AND :finish 
+              OR end_date BETWEEN :start AND :finish", 
+             start: self.start_date, finish: self.end_date)
       .where(
         "(:id IS NULL) OR (id != :id)", 
         id: self.id
