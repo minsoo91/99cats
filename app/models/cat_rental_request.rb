@@ -21,6 +21,8 @@ class CatRentalRequest < ActiveRecord::Base
   validates :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: { in: STATUSES }
   validate :does_not_overlap_with_approved_request
+  validates_date :end_date, after: :start_date
+  validates_date :start_date, on_or_after: Date.current
   
   belongs_to(
     :cat,

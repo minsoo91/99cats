@@ -29,8 +29,7 @@ class Cat < ActiveRecord::Base
   )
   
   validates :name, :description, presence: true
-  validates_date :birth_date, 
-                 timeliness: { on_or_before: lambda { Date.current } }
+  validates_date :birth_date, on_or_before: Date.current
   validates :color, inclusion: { in: COLORS }
   validates :sex, inclusion: { in: ["M", "F"], message: "Must be M or F" }
   
