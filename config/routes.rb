@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  root to: 'cats#index'
+  
   resources :cats
+  
   resources :cat_rental_requests, only: [:create, :destroy, :new] do
     member do
       patch 'approve'
       patch 'deny'
     end
-  end
-  root to: 'cats#index'
+  end  
 end

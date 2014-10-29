@@ -22,26 +22,30 @@
     <td><%= @cat.description %></td>
   </tr>
 </table>
+
 <h2>Rental Requests</h2>
+
 <table>
   <tr>
     <td>Start Date</td>
     <td>End Date</td>
-    <td></td>
-    <td></td>
   </tr>
+  
   <% @cat.rental_requests.each do |request| %>
     <tr>
       <td><%= request.start_date %></td>
       <td><%= request.end_date %></td>
       <% if request.pending? %>
-      <td><%= button_to "Approve", 
-             approve_cat_rental_request_url(request), method: :patch %></td>
+      <td><%= button_to "Approve",
+             approve_cat_rental_request_url(request),
+             method: :patch %></td>
       <td><%= button_to "Deny", 
-             deny_cat_rental_request_url(request), method: :patch %></td>
+             deny_cat_rental_request_url(request),
+             method: :patch %></td>
       <% end %>
     </tr>
   <% end %>
+  
 </table>
 
 <%= link_to "All the cats!", cats_url %>

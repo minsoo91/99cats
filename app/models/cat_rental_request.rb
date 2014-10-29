@@ -42,7 +42,7 @@ class CatRentalRequest < ActiveRecord::Base
     overlapping_requests.where("status = 'PENDING'")
   end
   
-  def overlapping_requests
+  def overlapping_requests # encapsulating case
     CatRentalRequest
       .where("cat_id = ?", self.cat_id)
       .where("start_date BETWEEN :start AND :finish 

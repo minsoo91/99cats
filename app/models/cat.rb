@@ -20,6 +20,11 @@ class Cat < ActiveRecord::Base
     "orange"
   ]
   
+  validates :name, :description, presence: true
+  validates_date :birth_date, on_or_before: Date.current # write your own if you have time
+  validates :color, inclusion: { in: COLORS }
+  validates :sex, inclusion: { in: ["M", "F"], message: "Must be M or F" }
+
   has_many(
     :rental_requests,
     class_name: "CatRentalRequest",
@@ -28,21 +33,16 @@ class Cat < ActiveRecord::Base
     dependent: :destroy
   )
   
-  validates :name, :description, presence: true
-  validates_date :birth_date, on_or_before: Date.current
-  validates :color, inclusion: { in: COLORS }
-  validates :sex, inclusion: { in: ["M", "F"], message: "Must be M or F" }
-  
   def age
     "#{((Date.current - birth_date).to_i) / 365} years"
   end
   
-  def all_colors
-    COLORS
-  end
+  # def all_colors
+  #   COLORS
+  # end
   
-  def rental_requests
-    CatRentalRequest.where("cat_id = ?", self.id)
-                    .order(:start_date)
-  end
+  # def rental_requests
+  #   CatRentalRequest.where("cat_id = ?", self.id)
+  #                   .order(:start_date)
+  # end
 end
