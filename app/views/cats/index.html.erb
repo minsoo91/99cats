@@ -1,7 +1,17 @@
-<ul>
-<% @cats.each do |cat| %>
-  <li><%= link_to cat.name, cat_url(cat) %></li>
-<% end %>
-</ul>
-<%= link_to "Put your cat up for rent!", new_cat_url %>
-<%= link_to "Rent a cat!", new_cat_rental_request_url %>
+<div class="container col-md-offset-4">
+  <% @cats.each do |cat| %>
+    <div class="row"><%= link_to cat.name, cat_url(cat) %></div>
+  <% end %>
+  <div class="row">
+    <div class="btn btn-default btn-md btn-tertiary">
+      <%= link_to "Put your cat up for rent!", new_cat_url %>
+      <span class="glyphicon glyphicon-plus">
+      </span>
+    </div>
+    <div class="btn btn-default btn-md">
+      <%= link_to "Rent a cat!", new_cat_rental_request_url %>
+      <span class="glyphicon glyphicon-home">
+      </span>
+    </div>
+  </div>
+</div>
