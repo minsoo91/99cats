@@ -8,6 +8,10 @@
 </head>
 <body>
 <%= flash[:errors] && flash[:errors] %>
+<h1>Hello, <%= current_user ? current_user.user_name : "you.." %>!</h1>
+<% if current_user %>
+<%= button_to "Logout", session_url, method: :delete %>
+<% end %>
 <%= yield %>
 
 </body>
