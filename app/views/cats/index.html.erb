@@ -1,4 +1,7 @@
 <div class="container col-md-offset-4">
+  <div class="row">
+    <h1>All the Cats!</h1>
+  </div>
   <% @cats.each do |cat| %>
     <div class="row"><%= link_to cat.name, cat_url(cat) %></div>
   <% end %>

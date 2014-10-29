@@ -1,52 +1,48 @@
 <div class="container">
-      <h1><%= @cat.name %></h1>
+  <h1 class="col-md-offset-5"><%= @cat.name %></h1>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-1 col-md-offset-3">Birth Date:</div>
-      <div class="col-md-8"><%= @cat.birth_date %></div>
+      <div class="col-md-8 col-md-offset-4">Birth Date: <%= @cat.birth_date %></div>
     </div>
     <div class="row">
-      <div class="col-md-1 col-md-offset-3">Age:</div>
-      <div class="col-md-8"><%= @cat.age %></div>
+      <div class="col-md-8 col-md-offset-4">Age: <%= @cat.age %></div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-4">Color: <%= @cat.color %></div>
     </div>
     <div class="row">
-      <div class="col-md-1 col-md-offset-3">Color:</div>
-      <div class="col-md-8"><%= @cat.color %></div>
+      <div class="col-md-8 col-md-offset-4">Sex: <%= @cat.sex %></div>
     </div>
     <div class="row">
-      <div class="col-md-1 col-md-offset-3">Sex:</div>
-      <div><div class="col-md-8"><%= @cat.sex %></div>
-    </div>
-    <div class="row">
-      <div class="col-md-1 col-md-offset-3">Description:</div>
-      <div class="col-md-8"><%= @cat.description %></div>
+      <div class="col-md-8 col-md-offset-4">Description: <%= @cat.description %></div>
     </div>
   </div>
-
-  <h2>Rental Requests</h2>
-
-    <div class="row">
-      <div class="col-md-1 col-md-offset-3">Start Date</div>
-      <div class="col-md-8">End Date</div>
-    </div>
   
-    <% @cat.rental_requests.each do |request| %>
-      <div class="row">
-        <div><%= request.start_date %></div>
-        <div><%= request.end_date %></div>
-        <% if request.pending? %>
-        <div><%= button_to "Approve",
-               approve_cat_rental_request_url(request),
-               method: :patch %></div>
-        <div><%= button_to "Deny", 
-               deny_cat_rental_request_url(request),
-               method: :patch %></div>
-        <% end %>
-      </div>
-    <% end %>
+  </div class="row">
+    <h2 class="col-md-9 col-md-offset-4">Rental Requests</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1 col-md-offset-4">Start Date</div>
+    <div class="col-md-7">End Date</div>
+  </div>
+  
+  <% @cat.rental_requests.each do |request| %>
+    <div class="row" style="padding: 15px 0px 15px 0px">
+      <div class="col-md-1 col-md-offset-4"><%= request.start_date %></div>
+      <div class="col-md-1"><%= request.end_date %></div>
+      <% if request.pending? %>
+      <div class="col-md-1"><%= button_to "Approve",
+             approve_cat_rental_request_url(request),
+             method: :patch %></div>
+      <div class="col-md-1"><%= button_to "Deny", 
+             deny_cat_rental_request_url(request),
+             method: :patch %></div>
+      <% end %>
+    </div>
+  <% end %>
  
-  <div class="btn btn-default">
+  <div class="btn btn-default col-md-offset-4">
     <%= link_to "All the cats!", cats_url %>
   </div>
 </div>

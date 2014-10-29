@@ -46,7 +46,8 @@ class CatRentalRequest < ActiveRecord::Base
     CatRentalRequest
       .where("cat_id = ?", self.cat_id)
       .where("start_date BETWEEN :start AND :finish 
-              OR end_date BETWEEN :start AND :finish", 
+              OR end_date BETWEEN :start AND :finish
+              OR :start BETWEEN start_date AND end_date", 
              start: self.start_date, finish: self.end_date)
       .where(
         "(:id IS NULL) OR (id != :id)", 

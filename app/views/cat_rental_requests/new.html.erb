@@ -3,7 +3,7 @@
   <div class="col-md-2 col-md-offset-1" style="padding: 8px 0px 15px 0px">
     <select name="cat_rental_request[cat_id]"
             id="cat_rental_request_cat_id">
-      <option "disabled" 
+      <option disabled="disabled" 
       <%="selected" if @cat_rental_request.cat_id.nil? %>>Pick a cat</option>
        <% Cat.all.each do |cat_obj|%>
          <option value="<%= cat_obj.id %>" 
