@@ -18,7 +18,7 @@ class CatRentalRequest < ActiveRecord::Base
     "DENIED"
   ]
   
-  validates :cat_id, :start_date, :end_date, presence: true
+  validates :cat_id, :start_date, :end_date, :user_id, presence: true
   validates :status, inclusion: { in: STATUSES }
   validate :does_not_overlap_with_approved_request
   validates_date :end_date, after: :start_date
@@ -28,6 +28,13 @@ class CatRentalRequest < ActiveRecord::Base
     :cat,
     class_name: "Cat",
     foreign_key: :cat_id,
+    primary_key: :id
+  )
+  
+  belongs_to(
+    :user,
+    class_name: 'User',
+    foreign_key: :user_id,
     primary_key: :id
   )
   
@@ -56,8 +63,7 @@ class CatRentalRequest < ActiveRecord::Base
   end
   
   def deny!
-    self.status = "DENIED"
-    self.save
+    self.update(status: "DENIED")
   end
   
   def overlapping_approved_requests

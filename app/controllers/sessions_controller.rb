@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :require_logged_in, except: [:new, :create]
+  
   def new
     @user = User.new
     render :new
@@ -27,5 +28,4 @@ class SessionsController < ApplicationController
     current_user = nil
     redirect_to cats_url
   end
-  
 end

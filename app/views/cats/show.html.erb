@@ -28,10 +28,12 @@
   </div>
   
   <% @cat.rental_requests.each do |request| %>
+  <% if request.pending? %>
     <div class="row" style="padding: 15px 0px 15px 0px">
-      <div class="col-md-1 col-md-offset-4"><%= request.start_date %></div>
+      <div class="col-md-4" align="right"><%= User.find(request.user_id).user_name %></div>
+      <div class="col-md-1"><%= request.start_date %></div>
       <div class="col-md-1"><%= request.end_date %></div>
-      <% if request.pending? %>
+      <% if @cat.user_id == current_user.id %>
       <div class="col-md-1"><%= button_to "Approve",
              approve_cat_rental_request_url(request),
              method: :patch %></div>
@@ -39,6 +41,7 @@
              deny_cat_rental_request_url(request),
              method: :patch %></div>
       <% end %>
+    <% end %>
     </div>
   <% end %>
  

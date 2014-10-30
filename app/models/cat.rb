@@ -33,6 +33,13 @@ class Cat < ActiveRecord::Base
     dependent: :destroy
   )
   
+  belongs_to(
+    :user,
+    class_name: 'User',
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+  
   def age
     "#{((Date.current - birth_date).to_i) / 365} years"
   end

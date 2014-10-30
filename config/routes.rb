@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   resource :user, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]
-  resources :cats
+  resources :cats 
   
   resources :cat_rental_requests, only: [:create, :destroy, :new] do
     member do

@@ -5,6 +5,10 @@
 <% end %>
 <div class="container col-md-offset-4">
   <form action="<%= action %>" method="post" role="form">
+    <input
+       name="authenticity_token"
+       type="hidden"
+       value="<%= form_authenticity_token %>">
     <% if @cat.persisted? %>
       <input type="hidden" name="_method" value="PATCH" >
     <% end %>
@@ -50,7 +54,7 @@
             <option value="<%= color %>" 
               <%="selected" if @cat.color == color %>>
               <%= color %></option>
-          <%end%>
+          <% end %>
         </select>
       </div>
       <div class="col-md-8 col-md-offset-4">

@@ -1,6 +1,9 @@
 class CatRentalRequestsController < ApplicationController
+  before_action :require_cat_owner, only: [:approve, :deny]
+    
   def create
     @cat_rental_request = CatRentalRequest.new(rental_params)
+    @cat_rental_request.user_id = current_user.id
     if @cat_rental_request.save
       redirect_to cat_url(@cat_rental_request.cat_id)
     else
@@ -23,13 +26,14 @@ class CatRentalRequestsController < ApplicationController
   def approve
     @cat_rental_request = CatRentalRequest.find(params[:id])
     @cat_rental_request.approve!
-    redirect_to cat_url(@cat_rental_request.cat_id)
+    redirect_to cat_url(@cat_rental_request.cat)
   end
   
   def deny
     @cat_rental_request = CatRentalRequest.find(params[:id])
+    
     @cat_rental_request.deny!
-    redirect_to cat_url(@cat_rental_request.cat_id)
+    redirect_to cat_url(@cat_rental_request.cat)
   end
   
   private
